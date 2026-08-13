@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, Instagram, Smartphone, Globe, Cpu, LayoutDashboard, Database, ArrowLeft } from "lucide-react";
 
 import logo from "@/assets/logo.png.asset.json";
@@ -8,6 +8,8 @@ import stages from "@/assets/stages.png.asset.json";
 import uiux from "@/assets/uiux.png.asset.json";
 import why from "@/assets/why.png.asset.json";
 import cta from "@/assets/cta.jpg.asset.json";
+import { ProjectsSection } from "@/components/ProjectsSection";
+
 
 const WHATSAPP = "https://wa.me/967776567738";
 const INSTAGRAM = "https://instagram.com/tekniq";
@@ -228,7 +230,10 @@ function Index() {
         </div>
       </section>
 
+      <ProjectsSection />
+
       {/* Contact */}
+
       <section id="contact" className="px-5 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="relative overflow-hidden rounded-3xl border border-border/70">
@@ -258,6 +263,8 @@ function Index() {
           <div className="flex items-center gap-4">
             <a href={WHATSAPP} target="_blank" rel="noreferrer" className="transition-colors hover:text-primary">776567738</a>
             <a href={INSTAGRAM} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">@tekniq</a>
+            <Link to="/auth" className="transition-colors hover:text-primary">الإدارة</Link>
+
           </div>
         </div>
       </footer>
