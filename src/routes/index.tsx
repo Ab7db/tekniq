@@ -263,6 +263,8 @@ function Index() {
           <div className="flex items-center gap-4">
             <a href={WHATSAPP} target="_blank" rel="noreferrer" className="transition-colors hover:text-primary">776567738</a>
             <a href={INSTAGRAM} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">@tekniq</a>
+            <Link to="/auth" className="transition-colors hover:text-primary">الإدارة</Link>
+
           </div>
         </div>
       </footer>
