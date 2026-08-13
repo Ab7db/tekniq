@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, Instagram, Smartphone, Globe, Cpu, LayoutDashboard, Database, ArrowLeft } from "lucide-react";
 
 import logo from "@/assets/logo.png.asset.json";
