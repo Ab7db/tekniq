@@ -8,6 +8,8 @@ import stages from "@/assets/stages.png.asset.json";
 import uiux from "@/assets/uiux.png.asset.json";
 import why from "@/assets/why.png.asset.json";
 import cta from "@/assets/cta.jpg.asset.json";
+import { ProjectsSection } from "@/components/ProjectsSection";
+
 
 const WHATSAPP = "https://wa.me/967776567738";
 const INSTAGRAM = "https://instagram.com/tekniq";
