@@ -122,7 +122,7 @@ function Index() {
                   <MessageCircle className="size-4" /> تواصل معنا واتساب
                 </a>
                 <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <Instagram className="size-4" /> @tekniq
+                  <Instagram className="size-4" /> <span dir="ltr">@tekniq</span>
                 </a>
               </div>
             </div>
@@ -238,10 +238,10 @@ function Index() {
               <p className="mt-2 text-sm text-muted-foreground sm:text-base">تواصل معنا لبدء مشروعك</p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <a href={WHATSAPP} target="_blank" rel="noreferrer" className="btn-glow flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <MessageCircle className="size-4" /> واتساب 776567738
+                  <MessageCircle className="size-4" /> واتساب <span dir="ltr">776567738</span>
                 </a>
                 <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <Instagram className="size-4" /> إنستقرام @tekniq
+                  <Instagram className="size-4" /> إنستقرام <span dir="ltr">@tekniq</span>
                 </a>
               </div>
             </div>
@@ -257,7 +257,7 @@ function Index() {
           </div>
           <div className="flex items-center gap-4">
             <a href={WHATSAPP} target="_blank" rel="noreferrer" className="transition-colors hover:text-primary">776567738</a>
-            <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="transition-colors hover:text-primary">@tekniq</a>
+            <a href={INSTAGRAM} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">@tekniq</a>
           </div>
         </div>
       </footer>
