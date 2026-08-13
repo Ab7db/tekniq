@@ -21,10 +21,10 @@ export const Route = createFileRoute("/")({
         content:
           "تكنيق Tekniq شركة متخصصة في تطوير تطبيقات الجوال، تصميم وبرمجة المواقع، الأنظمة المخصصة، وتصميم واجهات وتجربة المستخدم.",
       },
-      { property: "og:title", content: "تكنيك Tekniq | حيث تبدأ أفكارك الرقمية" },
+      { property: "og:title", content: "تكنيك Tekniq | حلول برمجية وتطبيقات ومواقع" },
       {
         property: "og:description",
-        content: "نصنع واقعك الرقمي: تطبيقات جوال، مواقع ومنصات، أنظمة مخصصة، وتجربة مستخدم متقنة.",
+        content: "تكنيق Tekniq شركة متخصصة في تطوير تطبيقات الجوال، تصميم وبرمجة المواقع، الأنظمة المخصصة، وتصميم واجهات وتجربة المستخدم.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "https://id-preview--dd76b832-744c-47c5-a595-c53d9927af70.lovable.app" + cta.url },

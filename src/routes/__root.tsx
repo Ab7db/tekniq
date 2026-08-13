@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "تكنيك Tekniq" },
-      { name: "description", content: "تكنيك Tekniq — حلول برمجية وتطبيقات ومواقع" },
+      { title: "تكنيك Tekniq | حلول برمجية وتطبيقات ومواقع" },
+      { name: "description", content: "تكنيق Tekniq شركة متخصصة في تطوير تطبيقات الجوال، تصميم وبرمجة المواقع، الأنظمة المخصصة، وتصميم واجهات وتجربة المستخدم." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "تكنيك Tekniq" },
-      { property: "og:description", content: "حيث تبدأ أفكارك الرقمية" },
+      { property: "og:title", content: "تكنيك Tekniq | حلول برمجية وتطبيقات ومواقع" },
+      { property: "og:description", content: "تكنيق Tekniq شركة متخصصة في تطوير تطبيقات الجوال، تصميم وبرمجة المواقع، الأنظمة المخصصة، وتصميم واجهات وتجربة المستخدم." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "تكنيك Tekniq | حلول برمجية وتطبيقات ومواقع" },
+      { name: "twitter:description", content: "تكنيق Tekniq شركة متخصصة في تطوير تطبيقات الجوال، تصميم وبرمجة المواقع، الأنظمة المخصصة، وتصميم واجهات وتجربة المستخدم." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5b94e75d5058c7a81dbeb5abc1297045/id-preview-a8836757--dd76b832-744c-47c5-a595-c53d9927af70.lovable.app-1786596554343.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5b94e75d5058c7a81dbeb5abc1297045/id-preview-a8836757--dd76b832-744c-47c5-a595-c53d9927af70.lovable.app-1786596554343.png" },
     ],
     links: [
       {
