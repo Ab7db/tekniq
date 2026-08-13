@@ -228,7 +228,10 @@ function Index() {
         </div>
       </section>
 
+      <ProjectsSection />
+
       {/* Contact */}
+
       <section id="contact" className="px-5 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="relative overflow-hidden rounded-3xl border border-border/70">
