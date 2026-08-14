@@ -56,7 +56,10 @@ function AdminPage() {
         return;
       }
       setEmail(data.session.user.email ?? null);
-      const { data: claimed } = await supabase.rpc("claim_admin");
+      const { data: claimed } = await supabase.rpc("has_role", {
+        _user_id: data.session.user.id,
+        _role: "admin",
+      });
       setIsAdmin(claimed === true);
       if (claimed === true) await load();
       setChecking(false);

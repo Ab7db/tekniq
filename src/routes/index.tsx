@@ -12,7 +12,7 @@ import { ProjectsSection } from "@/components/ProjectsSection";
 
 
 const WHATSAPP = "https://wa.me/967776567738";
-const INSTAGRAM = "https://instagram.com/tekniq";
+const INSTAGRAM = "https://instagram.com/tekni_q";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -124,7 +124,7 @@ function Index() {
                   <MessageCircle className="size-4" /> تواصل معنا واتساب
                 </a>
                 <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <Instagram className="size-4" /> <span dir="ltr">@tekniq</span>
+                  <Instagram className="size-4" /> <span dir="ltr">@tekni_q</span>
                 </a>
               </div>
             </div>
@@ -246,7 +246,7 @@ function Index() {
                   <MessageCircle className="size-4" /> واتساب <span dir="ltr">776567738</span>
                 </a>
                 <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <Instagram className="size-4" /> إنستقرام <span dir="ltr">@tekniq</span>
+                  <Instagram className="size-4" /> إنستقرام <span dir="ltr">@tekni_q</span>
                 </a>
               </div>
             </div>
@@ -262,7 +262,7 @@ function Index() {
           </div>
           <div className="flex items-center gap-4">
             <a href={WHATSAPP} target="_blank" rel="noreferrer" className="transition-colors hover:text-primary">776567738</a>
-            <a href={INSTAGRAM} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">@tekniq</a>
+            <a href={INSTAGRAM} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">@tekni_q</a>
             <Link to="/auth" className="transition-colors hover:text-primary">الإدارة</Link>
 
           </div>
