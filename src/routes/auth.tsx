@@ -21,7 +21,6 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,29 +37,13 @@ function AuthPage() {
     setLoading(true);
     setMessage(null);
 
-    if (mode === "login") {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      setLoading(false);
-      if (error) {
-        setMessage("تعذر تسجيل الدخول: تحقق من البريد وكلمة المرور.");
-        return;
-      }
-      navigate({ to: "/admin" });
-      return;
-    }
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: `${window.location.origin}/admin` },
-    });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
-      setMessage(error.message.includes("already") ? "هذا البريد مسجل مسبقاً، سجّل الدخول." : "تعذر إنشاء الحساب.");
+      setMessage("تعذر تسجيل الدخول: تحقق من البريد وكلمة المرور.");
       return;
     }
-    setMessage("تم إنشاء الحساب. إذا طُلب تأكيد البريد فافتح الرسالة، ثم سجّل الدخول.");
-    setMode("login");
+    navigate({ to: "/admin" });
   };
 
   return (
@@ -70,9 +53,7 @@ function AuthPage() {
           <Lock className="size-5" />
         </div>
         <h1 className="section-title !text-2xl">لوحة إدارة تكنيك</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {mode === "login" ? "دخول خاص بالمشرف لإدارة المشاريع." : "أنشئ حساب المشرف الخاص بك."}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">دخول خاص بالمشرف فقط — لا يمكن إنشاء حسابات جديدة.</p>
 
         <form onSubmit={submit} className="mt-6 space-y-4">
           <div>
@@ -101,7 +82,7 @@ function AuthPage() {
             />
           </div>
 
-          {message ? <p className="text-sm font-semibold text-primary">{message}</p> : null}
+          {message ? <p className="text-sm font-semibold text-destructive">{message}</p> : null}
 
           <button
             type="submit"
@@ -109,18 +90,11 @@ function AuthPage() {
             className="btn-glow w-full justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold disabled:opacity-60"
           >
             {loading ? <Loader2 className="size-4 animate-spin" /> : null}
-            {mode === "login" ? "تسجيل الدخول" : "إنشاء الحساب"}
+            تسجيل الدخول
           </button>
         </form>
 
-        <div className="mt-5 flex items-center justify-between text-sm">
-          <button
-            type="button"
-            onClick={() => setMode(mode === "login" ? "signup" : "login")}
-            className="font-semibold text-primary hover:underline"
-          >
-            {mode === "login" ? "إنشاء حساب المشرف" : "لدي حساب بالفعل"}
-          </button>
+        <div className="mt-5 flex justify-end text-sm">
           <Link to="/" className="text-muted-foreground hover:text-primary">العودة للموقع</Link>
         </div>
       </div>
