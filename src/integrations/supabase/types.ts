@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      media_assets: {
+        Row: {
+          alt_text_ar: string
+          alt_text_en: string
+          asset_key: string
+          id: string
+          image_url: string | null
+          section: string
+          updated_at: string
+        }
+        Insert: {
+          alt_text_ar?: string
+          alt_text_en?: string
+          asset_key: string
+          id?: string
+          image_url?: string | null
+          section?: string
+          updated_at?: string
+        }
+        Update: {
+          alt_text_ar?: string
+          alt_text_en?: string
+          asset_key?: string
+          id?: string
+          image_url?: string | null
+          section?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           created_at: string
@@ -70,6 +100,72 @@ export type Database = {
           published?: boolean
           sort_order?: number
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          content_key: string
+          field_type: string
+          id: string
+          section: string
+          text_ar: string
+          text_en: string
+          updated_at: string
+        }
+        Insert: {
+          content_key: string
+          field_type?: string
+          id?: string
+          section?: string
+          text_ar?: string
+          text_en?: string
+          updated_at?: string
+        }
+        Update: {
+          content_key?: string
+          field_type?: string
+          id?: string
+          section?: string
+          text_ar?: string
+          text_en?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          contact_email: string
+          contact_phone: string
+          favicon_url: string | null
+          id: string
+          logo_url: string | null
+          site_name_ar: string
+          site_name_en: string
+          social_links: Json
+          updated_at: string
+        }
+        Insert: {
+          contact_email?: string
+          contact_phone?: string
+          favicon_url?: string | null
+          id: string
+          logo_url?: string | null
+          site_name_ar?: string
+          site_name_en?: string
+          social_links?: Json
+          updated_at?: string
+        }
+        Update: {
+          contact_email?: string
+          contact_phone?: string
+          favicon_url?: string | null
+          id?: string
+          logo_url?: string | null
+          site_name_ar?: string
+          site_name_en?: string
+          social_links?: Json
           updated_at?: string
         }
         Relationships: []
