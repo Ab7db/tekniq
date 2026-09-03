@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 
 import { fetchPublishedProjects, signImageUrls, type Project } from "@/lib/projects";
+import { useSiteContent } from "@/lib/site";
 
 export function ProjectsSection() {
+  const { t } = useSiteContent();
   const [projects, setProjects] = useState<Project[]>([]);
   const [urls, setUrls] = useState<Record<string, string>>({});
 
@@ -30,9 +32,9 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="px-5 py-16">
       <div className="mx-auto max-w-6xl">
-        <span className="chip">أعمالنا</span>
-        <h2 className="section-title mt-4">مشاريعنا</h2>
-        <p className="mt-3 text-muted-foreground">نماذج من المشاريع التي نفذناها لعملائنا.</p>
+        <span className="chip">{t("projects_chip")}</span>
+        <h2 className="section-title mt-4">{t("projects_heading")}</h2>
+        <p className="mt-3 text-muted-foreground">{t("projects_subtext")}</p>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
@@ -59,7 +61,7 @@ export function ProjectsSection() {
                     rel="noreferrer"
                     className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
                   >
-                    زيارة المشروع <ExternalLink className="size-4" />
+                    {t("projects_link_label")} <ExternalLink className="size-4" />
                   </a>
                 ) : null}
               </div>
