@@ -1,11 +1,13 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
-import { Loader2, LogOut, Plus, Trash2, Upload, Eye, EyeOff, ShieldAlert, Pencil, X, Save, BarChart3, FolderKanban } from "lucide-react";
+import { Loader2, LogOut, Plus, Trash2, Upload, Eye, EyeOff, ShieldAlert, Pencil, X, Save, BarChart3, FolderKanban, FileText, Settings } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { PROJECT_BUCKET, fetchAllProjects, signImageUrls, type Project } from "@/lib/projects";
 import { fetchPageViews, type PageView } from "@/lib/analytics";
 import { StatsDashboard } from "@/components/StatsDashboard";
+import { ContentManager } from "@/components/admin/ContentManager";
+import { SettingsManager } from "@/components/admin/SettingsManager";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -36,7 +38,7 @@ function AdminPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
 
-  const [tab, setTab] = useState<"projects" | "stats">("projects");
+  const [tab, setTab] = useState<"projects" | "content" | "settings" | "stats">("projects");
   const [projects, setProjects] = useState<Project[]>([]);
   const [urls, setUrls] = useState<Record<string, string>>({});
   const [views, setViews] = useState<PageView[]>([]);
@@ -233,19 +235,23 @@ function AdminPage() {
           </div>
         </header>
 
-        <div className="mt-6 flex gap-2">
-          <button
-            onClick={() => setTab("projects")}
-            className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold ${tab === "projects" ? "btn-glow" : "btn-outline"}`}
-          >
-            <FolderKanban className="size-4" /> المشاريع
-          </button>
-          <button
-            onClick={() => setTab("stats")}
-            className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold ${tab === "stats" ? "btn-glow" : "btn-outline"}`}
-          >
-            <BarChart3 className="size-4" /> الإحصائيات
-          </button>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {(
+            [
+              { id: "projects", label: "المشاريع", Icon: FolderKanban },
+              { id: "content", label: "محتوى الموقع", Icon: FileText },
+              { id: "settings", label: "الإعدادات", Icon: Settings },
+              { id: "stats", label: "الإحصائيات", Icon: BarChart3 },
+            ] as const
+          ).map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              onClick={() => setTab(id)}
+              className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold ${tab === id ? "btn-glow" : "btn-outline"}`}
+            >
+              <Icon className="size-4" /> {label}
+            </button>
+          ))}
         </div>
 
         {error ? <p className="mt-6 text-sm font-semibold text-destructive">{error}</p> : null}
@@ -253,6 +259,14 @@ function AdminPage() {
         {tab === "stats" ? (
           <section className="mt-8">
             <StatsDashboard views={views} />
+          </section>
+        ) : tab === "content" ? (
+          <section className="mt-8">
+            <ContentManager />
+          </section>
+        ) : tab === "settings" ? (
+          <section className="mt-8">
+            <SettingsManager />
           </section>
         ) : (
           <>
