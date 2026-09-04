@@ -75,8 +75,8 @@ export function ContentManager() {
         keys.map((d) => ({
           content_key: d.key,
           section: d.section,
-          text_ar: drafts[d.key].ar,
-          text_en: drafts[d.key].en,
+          text_ar: drafts[d.key]?.ar ?? "",
+          text_en: drafts[d.key]?.en ?? "",
           field_type: d.type,
         })),
         { onConflict: "content_key" },
@@ -134,7 +134,7 @@ export function ContentManager() {
   }
 
   return (
-    <Tabs defaultValue={SECTIONS[1].id} className="w-full">
+    <Tabs defaultValue={SECTIONS[1]?.id ?? "hero"} className="w-full">
       <TabsList className="flex h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
         {SECTIONS.map((sec) => (
           <TabsTrigger
