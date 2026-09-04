@@ -28,70 +28,51 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const serviceList = [
-  {
-    icon: Smartphone,
-    title: "تطوير تطبيقات الجوال",
-    en: "Mobile Apps",
-    body: "نصمم ونبرمج تطبيقات ذكية وسريعة لنظامي iOS و Android بأحدث التقنيات لضمان أداء سلس وتجربة مستخدم لا تُنسى.",
-  },
-  {
-    icon: Globe,
-    title: "تصميم وبرمجة المواقع والمنصات",
-    en: "Web Development",
-    body: "موقع تعريفي، متجر إلكتروني، أو منصة سحابية معقدة — نضمن لك موقعاً متجاوباً مع جميع الشاشات وسريع التحميل.",
-  },
-  {
-    icon: Cpu,
-    title: "الأنظمة والحلول البرمجية المخصصة",
-    en: "Custom Software",
-    body: "نحل مشكلات أعمالك البرمجية ونساعدك على أتمتة عملياتك اليومية بأنظمة مخصصة تناسب حجم ونشاط مؤسستك.",
-  },
-  {
-    icon: LayoutDashboard,
-    title: "تصميم واجهات وتجربة المستخدم",
-    en: "UI / UX Design",
-    body: "واجهات عصرية جذابة وبسيطة تضمن وصول زوار مشروعك للخدمة المطلوبة بكل سهولة وفاعلية.",
-  },
-  {
-    icon: Database,
-    title: "إدارة وقواعد البيانات",
-    en: "Database & Backend",
-    body: "بنية تحتية برمجية صلبة وآمنة لضمان حماية بياناتك وسرعة معالجتها واستدعائها في أي وقت.",
-  },
-];
-
-const stageList = [
-  { stage: "Stage 1", title: "الفكرة العادية" },
-  { stage: "Stage 2", title: "تكنيك متقن" },
-  { stage: "Stage 3", title: "واقع رقمي قوي ومستدام" },
-];
-
-const whyList = [
-  "ندرس مشروعاتكم بعناية",
-  "أداء سريع",
-  "تجربة مستخدم سلسة",
-  "نمو وتميز الأعمال",
-];
+const serviceIcons = [Smartphone, Globe, Cpu, LayoutDashboard, Database];
 
 function Index() {
+  const { t, tEn } = useSiteContent();
+  const { img } = useMediaAssets();
+  const { settings, logoUrl, whatsapp, instagram, instagramHandle } = useSiteSettings();
+
+  const siteName = settings.site_name_ar || "تكنيك";
+  const phone = settings.contact_phone || "776567738";
+  const heroImg = img("hero_logo_3d");
+  const aboutImg = img("about_img");
+  const servicesImg = img("services_img");
+  const stagesImg = img("stages_img");
+  const whyImg = img("why_img");
+  const uiuxImg = img("uiux_img");
+  const ctaImg = img("cta_banner");
+
+  const services = serviceIcons.map((Icon, i) => ({
+    Icon,
+    title: t(`service_${i + 1}_title`),
+    en: tEn(`service_${i + 1}_title`),
+    body: t(`service_${i + 1}_body`),
+  }));
+  const stages = [1, 2, 3].map((n) => ({ stage: `Stage ${n}`, title: t(`stage_${n}`) }));
+  const whyList = [1, 2, 3, 4].map((n) => t(`why_${n}`));
+  const aboutPoints = [1, 2, 3].map((n) => t(`about_point_${n}`));
+
   return (
     <div className="min-h-screen bg-background text-foreground circuit-bg">
       {/* Nav */}
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
           <div className="flex items-center gap-3">
-            <img src={logo.url} alt="شعار شركة تكنيك Tekniq" className="h-11 w-11 rounded-full object-cover" />
-            <span className="text-lg font-bold tracking-tight">تكنيك</span>
+            <img src={logoUrl} alt={`شعار ${siteName}`} className="h-11 w-11 rounded-full object-cover" />
+            <span className="text-lg font-bold tracking-tight">{siteName}</span>
           </div>
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-            <a className="transition-colors hover:text-primary" href="#about">من نحن</a>
-            <a className="transition-colors hover:text-primary" href="#services">خدماتنا</a>
-            <a className="transition-colors hover:text-primary" href="#why">لماذا تكنيك</a>
-            <a className="transition-colors hover:text-primary" href="#contact">تواصل</a>
+            <a className="transition-colors hover:text-primary" href="#about">{t("nav_about")}</a>
+            <a className="transition-colors hover:text-primary" href="#services">{t("nav_services")}</a>
+            <a className="transition-colors hover:text-primary" href="#why">{t("nav_why")}</a>
+            <a className="transition-colors hover:text-primary" href="#projects">{t("projects_heading")}</a>
+            <a className="transition-colors hover:text-primary" href="#contact">{t("nav_contact")}</a>
           </nav>
-          <a href={WHATSAPP} target="_blank" rel="noreferrer" className="btn-glow rounded-full px-4 py-2 text-sm font-semibold">
-            ابدأ مشروعك
+          <a href={whatsapp} target="_blank" rel="noreferrer" className="btn-glow rounded-full px-4 py-2 text-sm font-semibold">
+            {t("nav_cta")}
           </a>
         </div>
       </header>
@@ -102,25 +83,24 @@ function Index() {
         <div className="mx-auto max-w-6xl">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div className="text-center md:text-right">
-              <span className="chip">حيث تبدأ أفكارك الرقمية</span>
+              <span className="chip">{t("hero_chip")}</span>
               <h1 className="mt-5 text-4xl leading-tight font-extrabold sm:text-5xl md:text-6xl">
-                لنصنع <span className="text-gradient">واقعك الرقمي.</span>
+                {t("hero_headline")} <span className="text-gradient">{t("hero_headline_accent")}</span>
               </h1>
-              <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                في عالم يتحرك بسرعة التقنية، لا تكفي الفكرة العادية. نحن شركة متخصصة في تقديم الحلول البرمجية
-                وتطوير تطبيقات الجوال والمواقع الإلكترونية.
+              <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg whitespace-pre-line">
+                {t("hero_subtext")}
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
-                <a href={WHATSAPP} target="_blank" rel="noreferrer" className="btn-glow flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <MessageCircle className="size-4" /> تواصل معنا واتساب
+                <a href={whatsapp} target="_blank" rel="noreferrer" className="btn-glow flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+                  <MessageCircle className="size-4" /> {t("hero_cta_whatsapp")}
                 </a>
-                <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <Instagram className="size-4" /> <span dir="ltr">@tekni_q</span>
+                <a href={instagram} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+                  <Instagram className="size-4" /> <span dir="ltr">{instagramHandle}</span>
                 </a>
               </div>
             </div>
             <div className="tilt-card mx-auto max-w-sm md:max-w-none">
-              <img src={logo.url} alt="هوية تكنيك Tekniq ثلاثية الأبعاد" className="w-full rounded-3xl" loading="eager" />
+              {heroImg.src ? <img src={heroImg.src} alt={heroImg.alt} className="w-full rounded-3xl" loading="eager" /> : null}
             </div>
           </div>
         </div>
@@ -130,19 +110,16 @@ function Index() {
       <section id="about" className="px-5 py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
           <div className="glass-panel overflow-hidden">
-            <img src={about.url} alt="عرض ثلاثي الأبعاد يوضح تصميم وأمان وجودة حلول تكنيك" className="w-full" loading="lazy" />
+            {aboutImg.src ? <img src={aboutImg.src} alt={aboutImg.alt} className="w-full" loading="lazy" /> : null}
           </div>
           <div>
-            <h2 className="section-title">من نحن؟</h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              نحن شركة متخصصة في تقديم الحلول البرمجية وتطوير تطبيقات الجوال والمواقع الإلكترونية، نجمع بين
-              التصميم العصري والمهارة التقنية العالية.
-            </p>
+            <h2 className="section-title">{t("about_title")}</h2>
+            <p className="mt-4 leading-relaxed text-muted-foreground whitespace-pre-line">{t("about_description")}</p>
             <ul className="mt-6 space-y-3">
-              {["التصميم العصري", "حلول تُبنى بأعلى معايير الجودة والأمان", "المهارة التقنية العالية"].map((t) => (
-                <li key={t} className="feature-row">
+              {aboutPoints.filter(Boolean).map((pt) => (
+                <li key={pt} className="feature-row">
                   <span className="dot" aria-hidden />
-                  {t}
+                  {pt}
                 </li>
               ))}
             </ul>
@@ -154,25 +131,25 @@ function Index() {
       <section id="services" className="px-5 py-16">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <h2 className="section-title">ماذا نقدم لك؟</h2>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-              نصنع لك حلولاً رقمية تتكيف مع تطلعاتك.
-            </p>
+            <h2 className="section-title">{t("services_heading")}</h2>
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{t("services_subtext")}</p>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {serviceList.map(({ icon: Icon, title, en, body }) => (
-              <article key={title} className="service-card">
+            {services.map(({ Icon, title, en, body }, i) => (
+              <article key={i} className="service-card">
                 <span className="icon-3d">
                   <Icon className="size-5" />
                 </span>
                 <h3 className="mt-5 text-lg font-bold">{title}</h3>
                 <span className="mt-1 block text-xs tracking-widest text-primary/80 uppercase">{en}</span>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground whitespace-pre-line">{body}</p>
               </article>
             ))}
-            <article className="glass-panel overflow-hidden p-0">
-              <img src={services.url} alt="رسم ثلاثي الأبعاد لخدمات تكنيك البرمجية" className="h-full w-full object-cover" loading="lazy" />
-            </article>
+            {servicesImg.src ? (
+              <article className="glass-panel overflow-hidden p-0">
+                <img src={servicesImg.src} alt={servicesImg.alt} className="h-full w-full object-cover" loading="lazy" />
+              </article>
+            ) : null}
           </div>
         </div>
       </section>
@@ -181,9 +158,9 @@ function Index() {
       <section className="px-5 py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
           <div>
-            <h2 className="section-title">في عالم يتحرك بسرعة التقنية، لا تكفي الفكرة العادية.</h2>
+            <h2 className="section-title">{t("stages_heading")}</h2>
             <ol className="mt-8 space-y-4">
-              {stageList.map(({ stage, title }, i) => (
+              {stages.map(({ stage, title }, i) => (
                 <li key={stage} className="stage-row">
                   <span className="stage-num">{i + 1}</span>
                   <div>
@@ -195,7 +172,7 @@ function Index() {
             </ol>
           </div>
           <div className="glass-panel overflow-hidden">
-            <img src={stages.url} alt="مراحل تحويل الفكرة إلى واقع رقمي" className="w-full" loading="lazy" />
+            {stagesImg.src ? <img src={stagesImg.src} alt={stagesImg.alt} className="w-full" loading="lazy" /> : null}
           </div>
         </div>
       </section>
@@ -204,19 +181,21 @@ function Index() {
       <section id="why" className="px-5 py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
           <div className="glass-panel overflow-hidden">
-            <img src={why.url} alt="لماذا تكنيك: أداء سريع ونمو للأعمال" className="w-full" loading="lazy" />
+            {whyImg.src ? <img src={whyImg.src} alt={whyImg.alt} className="w-full" loading="lazy" /> : null}
           </div>
           <div>
-            <h2 className="section-title">لماذا Tekniq؟</h2>
-            <p className="mt-3 text-lg font-semibold">لأننا لا نكتفي بكتابة الأكواد.</p>
+            <h2 className="section-title">{t("why_heading")}</h2>
+            <p className="mt-3 text-lg font-semibold">{t("why_subtitle")}</p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {whyList.map((t) => (
-                <div key={t} className="why-card">{t}</div>
+              {whyList.filter(Boolean).map((w) => (
+                <div key={w} className="why-card">{w}</div>
               ))}
             </div>
-            <div className="glass-panel mt-6 overflow-hidden">
-              <img src={uiux.url} alt="تصميم واجهات وتجربة المستخدم UI UX" className="w-full" loading="lazy" />
-            </div>
+            {uiuxImg.src ? (
+              <div className="glass-panel mt-6 overflow-hidden">
+                <img src={uiuxImg.src} alt={uiuxImg.alt} className="w-full" loading="lazy" />
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -224,22 +203,26 @@ function Index() {
       <ProjectsSection />
 
       {/* Contact */}
-
       <section id="contact" className="px-5 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="relative overflow-hidden rounded-3xl border border-border/70">
-            <img src={cta.url} alt="تكنيك Tekniq — لنصنع واقعك الرقمي" className="h-full w-full object-cover" loading="lazy" />
+            <img src={ctaImg.src || cta.url} alt={ctaImg.alt} className="h-full w-full object-cover" loading="lazy" />
             <div className="cta-overlay">
-              <h2 className="text-2xl font-extrabold sm:text-4xl">لنصنع واقعك الرقمي.</h2>
-              <p className="mt-2 text-sm text-muted-foreground sm:text-base">تواصل معنا لبدء مشروعك</p>
+              <h2 className="text-2xl font-extrabold sm:text-4xl">{t("contact_heading")}</h2>
+              <p className="mt-2 text-sm text-muted-foreground sm:text-base">{t("contact_subtext")}</p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <a href={WHATSAPP} target="_blank" rel="noreferrer" className="btn-glow flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <MessageCircle className="size-4" /> واتساب <span dir="ltr">776567738</span>
+                <a href={whatsapp} target="_blank" rel="noreferrer" className="btn-glow flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+                  <MessageCircle className="size-4" /> {t("contact_whatsapp_label")} <span dir="ltr">{phone}</span>
                 </a>
-                <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
-                  <Instagram className="size-4" /> إنستقرام <span dir="ltr">@tekni_q</span>
+                <a href={instagram} target="_blank" rel="noreferrer" className="btn-outline flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold">
+                  <Instagram className="size-4" /> {t("contact_instagram_label")} <span dir="ltr">{instagramHandle}</span>
                 </a>
               </div>
+              {settings.contact_email ? (
+                <a href={`mailto:${settings.contact_email}`} dir="ltr" className="mt-4 block text-sm text-muted-foreground hover:text-primary">
+                  {settings.contact_email}
+                </a>
+              ) : null}
             </div>
           </div>
         </div>
@@ -248,24 +231,23 @@ function Index() {
       <footer className="border-t border-border/60 px-5 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
           <div className="flex items-center gap-3">
-            <img src={logo.url} alt="شعار تكنيك" className="h-9 w-9 rounded-full object-cover" />
-            <span>© {new Date().getFullYear()} تكنيك Tekniq</span>
+            <img src={logoUrl} alt={`شعار ${siteName}`} className="h-9 w-9 rounded-full object-cover" />
+            <span>© {new Date().getFullYear()} {t("footer_copyright")}</span>
           </div>
           <div className="flex items-center gap-4">
-            <a href={WHATSAPP} target="_blank" rel="noreferrer" className="transition-colors hover:text-primary">776567738</a>
-            <a href={INSTAGRAM} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">@tekni_q</a>
-            <Link to="/auth" className="transition-colors hover:text-primary">الإدارة</Link>
-
+            <a href={whatsapp} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">{phone}</a>
+            <a href={instagram} target="_blank" rel="noreferrer" dir="ltr" className="transition-colors hover:text-primary">{instagramHandle}</a>
+            <Link to="/auth" className="transition-colors hover:text-primary">{t("footer_admin_label")}</Link>
           </div>
         </div>
       </footer>
 
       {/* Floating buttons */}
       <div className="fixed bottom-5 left-5 z-50 flex flex-col gap-3">
-        <a href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="تواصل واتساب" className="fab fab-wa">
+        <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="تواصل واتساب" className="fab fab-wa">
           <MessageCircle className="size-6" />
         </a>
-        <a href={INSTAGRAM} target="_blank" rel="noreferrer" aria-label="إنستقرام تكنيك" className="fab fab-ig">
+        <a href={instagram} target="_blank" rel="noreferrer" aria-label="إنستقرام" className="fab fab-ig">
           <Instagram className="size-6" />
         </a>
       </div>
