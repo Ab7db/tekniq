@@ -1,18 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, Instagram, Smartphone, Globe, Cpu, LayoutDashboard, Database, ArrowLeft } from "lucide-react";
 
-import logo from "@/assets/logo.png.asset.json";
-import about from "@/assets/about.png.asset.json";
-import services from "@/assets/services.png.asset.json";
-import stages from "@/assets/stages.png.asset.json";
-import uiux from "@/assets/uiux.png.asset.json";
-import why from "@/assets/why.png.asset.json";
 import cta from "@/assets/cta.jpg.asset.json";
 import { ProjectsSection } from "@/components/ProjectsSection";
-
-
-const WHATSAPP = "https://wa.me/967776567738";
-const INSTAGRAM = "https://instagram.com/tekni_q";
+import { useMediaAssets, useSiteContent, useSiteSettings } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
