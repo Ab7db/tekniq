@@ -93,10 +93,14 @@ function AdminPage() {
     navigate({ to: "/auth" });
   };
 
-  const uploadImage = async (f: File) => {
+  const uploadImage = async (orig: File) => {
+    const { compressImage } = await import("@/lib/image-compress");
+    const f = await compressImage(orig);
     const ext = f.name.split(".").pop() ?? "jpg";
     const path = `${crypto.randomUUID()}.${ext}`;
-    const { error: upErr } = await supabase.storage.from(PROJECT_BUCKET).upload(path, f);
+    const { error: upErr } = await supabase.storage
+      .from(PROJECT_BUCKET)
+      .upload(path, f, { contentType: f.type, cacheControl: "31536000" });
     if (upErr) throw upErr;
     return path;
   };
