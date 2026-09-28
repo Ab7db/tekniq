@@ -173,7 +173,9 @@ export function ContentManager() {
                       folder={`sections/${sec.id}`}
                       currentUrl={row?.image_url ?? null}
                       defaultUrl={m.url}
-                      onChange={(url) => saveMedia(m.key, url)}
+                      sizeBytes={row?.size_bytes ?? null}
+                      originalBytes={row?.original_bytes ?? null}
+                      onChange={(url, meta) => saveMedia(m.key, url, meta)}
                     />
                   );
                 })}
