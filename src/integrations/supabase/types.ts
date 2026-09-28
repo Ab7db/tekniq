@@ -21,7 +21,9 @@ export type Database = {
           asset_key: string
           id: string
           image_url: string | null
+          original_bytes: number | null
           section: string
+          size_bytes: number | null
           updated_at: string
         }
         Insert: {
@@ -30,7 +32,9 @@ export type Database = {
           asset_key: string
           id?: string
           image_url?: string | null
+          original_bytes?: number | null
           section?: string
+          size_bytes?: number | null
           updated_at?: string
         }
         Update: {
@@ -39,7 +43,9 @@ export type Database = {
           asset_key?: string
           id?: string
           image_url?: string | null
+          original_bytes?: number | null
           section?: string
+          size_bytes?: number | null
           updated_at?: string
         }
         Relationships: []
