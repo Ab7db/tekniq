@@ -140,10 +140,14 @@ export function useInvalidateSite() {
 
 /* ---------- storage helpers ---------- */
 
-export async function uploadSiteAsset(file: File, folder: string) {
+export async function uploadSiteAsset(original: File, folder: string) {
+  const { compressImage } = await import("@/lib/image-compress");
+  const file = await compressImage(original);
   const ext = (file.name.split(".").pop() ?? "png").toLowerCase();
   const path = `${folder}/${crypto.randomUUID()}.${ext}`;
-  const { error } = await supabase.storage.from(SITE_BUCKET).upload(path, file, { upsert: false, cacheControl: "3600" });
+  const { error } = await supabase.storage
+    .from(SITE_BUCKET)
+    .upload(path, file, { upsert: false, cacheControl: "31536000", contentType: file.type });
   if (error) throw error;
   const { data } = supabase.storage.from(SITE_BUCKET).getPublicUrl(path);
   return data.publicUrl;

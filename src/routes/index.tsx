@@ -61,7 +61,7 @@ function Index() {
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
           <div className="flex items-center gap-3">
-            <img src={logoUrl} alt={`شعار ${siteName}`} className="h-11 w-11 rounded-full object-cover" />
+            <img loading="lazy" decoding="async" src={logoUrl} alt={`شعار ${siteName}`} className="h-11 w-11 rounded-full object-cover" />
             <span className="text-lg font-bold tracking-tight">{siteName}</span>
           </div>
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
@@ -231,7 +231,7 @@ function Index() {
       <footer className="border-t border-border/60 px-5 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
           <div className="flex items-center gap-3">
-            <img src={logoUrl} alt={`شعار ${siteName}`} className="h-9 w-9 rounded-full object-cover" />
+            <img loading="lazy" decoding="async" src={logoUrl} alt={`شعار ${siteName}`} className="h-9 w-9 rounded-full object-cover" />
             <span>© {new Date().getFullYear()} {t("footer_copyright")}</span>
           </div>
           <div className="flex items-center gap-4">
