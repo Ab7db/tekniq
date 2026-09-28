@@ -105,6 +105,14 @@ export function ImageField({ label, hint, currentUrl, defaultUrl, folder, aspect
         <div>
           <p className="text-sm font-bold">{label}</p>
           {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
+          {sizeBytes ? (
+            <p className="mt-1 text-[11px] text-muted-foreground" dir="ltr">
+              {formatBytes(sizeBytes)}
+              {originalBytes && originalBytes > sizeBytes ? (
+                <span className="text-primary"> ← وفّر {formatBytes(originalBytes - sizeBytes)} من {formatBytes(originalBytes)}</span>
+              ) : null}
+            </p>
+          ) : null}
         </div>
         {currentUrl ? (
           <Button type="button" size="sm" variant="ghost" onClick={reset} disabled={busy} className="gap-1 text-xs">

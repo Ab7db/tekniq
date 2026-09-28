@@ -110,14 +110,22 @@ export function ContentManager() {
     }
   };
 
-  const saveMedia = async (key: string, url: string | null) => {
+  const saveMedia = async (key: string, url: string | null, meta?: { sizeBytes: number; originalBytes: number }) => {
     const d = MEDIA_DEFAULTS.find((m) => m.key === key)!;
     if (url === null) {
       const { error } = await supabase.from("media_assets").delete().eq("asset_key", key);
       if (error) throw error;
     } else {
       const { error } = await supabase.from("media_assets").upsert(
-        { asset_key: key, section: d.section, image_url: url, alt_text_ar: d.altAr, alt_text_en: d.altEn },
+        {
+          asset_key: key,
+          section: d.section,
+          image_url: url,
+          alt_text_ar: d.altAr,
+          alt_text_en: d.altEn,
+          size_bytes: meta?.sizeBytes ?? null,
+          original_bytes: meta?.originalBytes ?? null,
+        },
         { onConflict: "asset_key" },
       );
       if (error) throw error;
