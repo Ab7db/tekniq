@@ -28,8 +28,18 @@ export type MediaAssetRow = {
   alt_text_ar: string;
   alt_text_en: string;
   section: string;
+  size_bytes: number | null;
+  original_bytes: number | null;
   updated_at: string;
 };
+
+/** تنسيق حجم الملف بصيغة مقروءة (KB / MB). */
+export function formatBytes(bytes: number | null | undefined): string {
+  if (!bytes || bytes <= 0) return "—";
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
 
 export type SiteSettingsRow = {
   id: string;
@@ -140,7 +150,15 @@ export function useInvalidateSite() {
 
 /* ---------- storage helpers ---------- */
 
-export async function uploadSiteAsset(original: File, folder: string) {
+export type UploadedAsset = {
+  url: string;
+  /** حجم الملف بعد الضغط (بايت). */
+  sizeBytes: number;
+  /** حجم الملف الأصلي قبل الضغط (بايت). */
+  originalBytes: number;
+};
+
+export async function uploadSiteAsset(original: File, folder: string): Promise<UploadedAsset> {
   const { compressImage } = await import("@/lib/image-compress");
   const file = await compressImage(original);
   const ext = (file.name.split(".").pop() ?? "png").toLowerCase();
@@ -150,7 +168,7 @@ export async function uploadSiteAsset(original: File, folder: string) {
     .upload(path, file, { upsert: false, cacheControl: "31536000", contentType: file.type });
   if (error) throw error;
   const { data } = supabase.storage.from(SITE_BUCKET).getPublicUrl(path);
-  return data.publicUrl;
+  return { url: data.publicUrl, sizeBytes: file.size, originalBytes: original.size };
 }
 
 /** Remove a previously uploaded file if it lives in our bucket. */

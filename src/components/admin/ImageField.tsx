@@ -3,10 +3,12 @@ import { ImageIcon, Loader2, RotateCcw, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { uploadSiteAsset, removeSiteAssetByUrl } from "@/lib/site";
+import { uploadSiteAsset, removeSiteAssetByUrl, formatBytes } from "@/lib/site";
 
 const MAX_MB = 5;
 const ACCEPTED = ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/x-icon", "image/vnd.microsoft.icon"];
+
+export type ImageChangeMeta = { sizeBytes: number; originalBytes: number };
 
 type Props = {
   label: string;
@@ -15,11 +17,15 @@ type Props = {
   defaultUrl?: string | null;
   folder: string;
   aspect?: string;
+  /** حجم الصورة الحالية بعد الضغط (بايت) إن وُجد. */
+  sizeBytes?: number | null;
+  /** حجم الصورة الأصلية قبل الضغط (بايت) إن وُجد. */
+  originalBytes?: number | null;
   /** Called after a new image has been uploaded (or null to reset to default). */
-  onChange: (url: string | null) => Promise<void> | void;
+  onChange: (url: string | null, meta?: ImageChangeMeta) => Promise<void> | void;
 };
 
-export function ImageField({ label, hint, currentUrl, defaultUrl, folder, aspect = "aspect-[4/3]", onChange }: Props) {
+export function ImageField({ label, hint, currentUrl, defaultUrl, folder, aspect = "aspect-[4/3]", sizeBytes, originalBytes, onChange }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -59,10 +65,15 @@ export function ImageField({ label, hint, currentUrl, defaultUrl, folder, aspect
     if (!pending) return;
     setBusy(true);
     try {
-      const url = await uploadSiteAsset(pending, folder);
-      await onChange(url);
+      const asset = await uploadSiteAsset(pending, folder);
+      await onChange(asset.url, { sizeBytes: asset.sizeBytes, originalBytes: asset.originalBytes });
       await removeSiteAssetByUrl(currentUrl);
-      toast.success("تم حفظ الصورة.");
+      const saved = asset.originalBytes - asset.sizeBytes;
+      toast.success(
+        saved > 0
+          ? `تم حفظ الصورة — الحجم بعد الضغط ${formatBytes(asset.sizeBytes)} (وفّرت ${formatBytes(saved)}).`
+          : `تم حفظ الصورة — الحجم ${formatBytes(asset.sizeBytes)}.`,
+      );
       cancelPending();
     } catch (err) {
       console.error(err);
@@ -94,6 +105,14 @@ export function ImageField({ label, hint, currentUrl, defaultUrl, folder, aspect
         <div>
           <p className="text-sm font-bold">{label}</p>
           {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
+          {sizeBytes ? (
+            <p className="mt-1 text-[11px] text-muted-foreground" dir="ltr">
+              {formatBytes(sizeBytes)}
+              {originalBytes && originalBytes > sizeBytes ? (
+                <span className="text-primary"> ← وفّر {formatBytes(originalBytes - sizeBytes)} من {formatBytes(originalBytes)}</span>
+              ) : null}
+            </p>
+          ) : null}
         </div>
         {currentUrl ? (
           <Button type="button" size="sm" variant="ghost" onClick={reset} disabled={busy} className="gap-1 text-xs">
