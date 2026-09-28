@@ -100,7 +100,7 @@ function Index() {
               </div>
             </div>
             <div className="tilt-card mx-auto max-w-sm md:max-w-none">
-              {heroImg.src ? <img loading="lazy" decoding="async" src={heroImg.src} alt={heroImg.alt} className="w-full rounded-3xl" loading="eager" /> : null}
+              {heroImg.src ? <img src={heroImg.src} alt={heroImg.alt} className="w-full rounded-3xl" loading="eager" /> : null}
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ function Index() {
       <section id="about" className="px-5 py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
           <div className="glass-panel overflow-hidden">
-            {aboutImg.src ? <img loading="lazy" decoding="async" src={aboutImg.src} alt={aboutImg.alt} className="w-full" loading="lazy" /> : null}
+            {aboutImg.src ? <img src={aboutImg.src} alt={aboutImg.alt} className="w-full" loading="lazy" /> : null}
           </div>
           <div>
             <h2 className="section-title">{t("about_title")}</h2>
@@ -147,7 +147,7 @@ function Index() {
             ))}
             {servicesImg.src ? (
               <article className="glass-panel overflow-hidden p-0">
-                <img loading="lazy" decoding="async" src={servicesImg.src} alt={servicesImg.alt} className="h-full w-full object-cover" loading="lazy" />
+                <img src={servicesImg.src} alt={servicesImg.alt} className="h-full w-full object-cover" loading="lazy" />
               </article>
             ) : null}
           </div>
@@ -172,7 +172,7 @@ function Index() {
             </ol>
           </div>
           <div className="glass-panel overflow-hidden">
-            {stagesImg.src ? <img loading="lazy" decoding="async" src={stagesImg.src} alt={stagesImg.alt} className="w-full" loading="lazy" /> : null}
+            {stagesImg.src ? <img src={stagesImg.src} alt={stagesImg.alt} className="w-full" loading="lazy" /> : null}
           </div>
         </div>
       </section>
@@ -181,7 +181,7 @@ function Index() {
       <section id="why" className="px-5 py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
           <div className="glass-panel overflow-hidden">
-            {whyImg.src ? <img loading="lazy" decoding="async" src={whyImg.src} alt={whyImg.alt} className="w-full" loading="lazy" /> : null}
+            {whyImg.src ? <img src={whyImg.src} alt={whyImg.alt} className="w-full" loading="lazy" /> : null}
           </div>
           <div>
             <h2 className="section-title">{t("why_heading")}</h2>
@@ -193,7 +193,7 @@ function Index() {
             </div>
             {uiuxImg.src ? (
               <div className="glass-panel mt-6 overflow-hidden">
-                <img loading="lazy" decoding="async" src={uiuxImg.src} alt={uiuxImg.alt} className="w-full" loading="lazy" />
+                <img src={uiuxImg.src} alt={uiuxImg.alt} className="w-full" loading="lazy" />
               </div>
             ) : null}
           </div>
@@ -206,7 +206,7 @@ function Index() {
       <section id="contact" className="px-5 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="relative overflow-hidden rounded-3xl border border-border/70">
-            <img loading="lazy" decoding="async" src={ctaImg.src || cta.url} alt={ctaImg.alt} className="h-full w-full object-cover" loading="lazy" />
+            <img src={ctaImg.src || cta.url} alt={ctaImg.alt} className="h-full w-full object-cover" loading="lazy" />
             <div className="cta-overlay">
               <h2 className="text-2xl font-extrabold sm:text-4xl">{t("contact_heading")}</h2>
               <p className="mt-2 text-sm text-muted-foreground sm:text-base">{t("contact_subtext")}</p>
