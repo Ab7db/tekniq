@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -16,7 +16,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Eye, Users, CalendarDays, TrendingUp } from "lucide-react";
+import { Eye, Users, CalendarDays, TrendingUp, TrendingDown, Activity, Trophy } from "lucide-react";
 
 import { buildStats, type PageView } from "@/lib/analytics";
 
@@ -29,14 +29,22 @@ const COLORS = [
   "hsl(var(--destructive))",
 ];
 
+const RANGES = [
+  { days: 7, label: "7 أيام" },
+  { days: 30, label: "30 يوم" },
+  { days: 90, label: "90 يوم" },
+] as const;
+
 function StatCard({
   icon,
   label,
   value,
+  sub,
 }: {
   icon: React.ReactNode;
   label: string;
-  value: number;
+  value: number | string;
+  sub?: string;
 }) {
   return (
     <div className="glass-panel flex items-center gap-4 p-5">
@@ -44,8 +52,9 @@ function StatCard({
       <div>
         <p className="text-xs font-semibold text-muted-foreground">{label}</p>
         <p className="text-2xl font-extrabold text-primary" dir="ltr">
-          {value.toLocaleString("ar")}
+          {typeof value === "number" ? value.toLocaleString("ar") : value}
         </p>
+        {sub ? <p className="text-[11px] text-muted-foreground">{sub}</p> : null}
       </div>
     </div>
   );
